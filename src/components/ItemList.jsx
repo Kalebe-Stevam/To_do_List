@@ -4,36 +4,33 @@ import { useState } from "react"
 
 
 import "./ItemList.css"
-
-const ItemList = ({ Text }) => {
+//, list,setList, key
+const ItemList = ({ Text, index, removeItem }) => {
     const [isChecked, setIsChecked] = useState("")
-    const [onOf, setonOf] = useState(true)
+
 
     return (
-        <>
-            {onOf === true &&
-                <div className={`container_items${isChecked}`}>
-                    <button className="btn">
-                        <BsPencilSquare />
-                    </button>
-                    <div className="content">
-                        <p>
-                            {Text}
-                        </p>
-                    </div>
-                    <div className="btn_left">
-                        <button className="btn" onClick={()=> setonOf(false)}>
-                            <IoRemoveCircleOutline />
-                        </button>
-                        <button
-                            className="btn"
-                            onClick={() => { isChecked == "" ? setIsChecked(" checked") : setIsChecked("") }} >
-                            <BsCheck2Circle />
-                        </button>
-                    </div>
-                </div>
-            }
-        </>
+        <div className={`container_items${isChecked}`}>
+            <button className="btn">
+                <BsPencilSquare />
+            </button>
+            <div className="content">
+                <p>
+                    {Text}
+                </p>
+            </div>
+            <div className="btn_left">
+                <button className="btn remove" onClick={() => removeItem(index)}>
+                    <IoRemoveCircleOutline />
+                </button>
+                <button
+                    className="btn check"
+                    onClick={() => { isChecked == "" ? setIsChecked(" checked") : setIsChecked("") }} >
+                    <BsCheck2Circle />
+                </button>
+            </div>
+        </div>
+
     )
 }
 
