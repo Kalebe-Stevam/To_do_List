@@ -4,7 +4,6 @@ import { useState } from "react"
 
 
 import "./ItemList.css"
-//, list,setList, key
 const ItemList = ({ Text, index, removeItem }) => {
     const [isChecked, setIsChecked] = useState("")
 
