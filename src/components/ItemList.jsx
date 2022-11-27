@@ -1,16 +1,18 @@
+import { useState } from "react"
+import { connect } from "react-redux"
+import DeletItem from "../store/actions/DeletItem"
 import { BsPencilSquare, BsCheck2Circle } from "react-icons/bs"
 import { IoRemoveCircleOutline } from "react-icons/io5"
-import { useState } from "react"
-
-
+import EditFile from "./EditFile"
 import "./ItemList.css"
-const ItemList = ({ Text, index, removeItem }) => {
+
+
+const ItemList = ({ Text, index, remove }) => {
+    const [showEdit, setshowEdit] = useState({index:null, show:false})
     const [isChecked, setIsChecked] = useState("")
-
-
     return (
         <div className={`container_items${isChecked}`}>
-            <button className="btn">
+            <button className="btn" onClick={() => setshowEdit({show:true, index:index})}>
                 <BsPencilSquare />
             </button>
             <div className="content">
@@ -19,7 +21,7 @@ const ItemList = ({ Text, index, removeItem }) => {
                 </p>
             </div>
             <div className="btn_left">
-                <button className="btn remove" onClick={() => removeItem(index)}>
+                <button className="btn remove" onClick={() => remove(index)}>
                     <IoRemoveCircleOutline />
                 </button>
                 <button
@@ -28,9 +30,18 @@ const ItemList = ({ Text, index, removeItem }) => {
                     <BsCheck2Circle />
                 </button>
             </div>
+            { showEdit.show == true &&
+            <EditFile info={showEdit} setInfo={setshowEdit}/>}
         </div>
 
     )
 }
 
-export default ItemList
+const mapStateToProps = state => ({
+})
+
+const mapDispatchToProps = dispatch => ({
+    remove: index => dispatch(DeletItem(index))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(ItemList)
